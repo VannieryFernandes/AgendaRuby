@@ -1,10 +1,12 @@
 class ContatosController < ApplicationController
+
+  before_action :require_logged_in_user
   before_action :set_contato, only: [:show, :edit, :update, :destroy]
 
   # GET /contatos
   # GET /contatos.json
   def index
-    @contatos = Contato.all
+    @contatos = current_user.contatos
   end
 
   # GET /contatos/1
@@ -24,7 +26,7 @@ class ContatosController < ApplicationController
   # POST /contatos
   # POST /contatos.json
   def create
-    @contato = Contato.new(contato_params)
+    @contato = current_user.contatos.build(contact_params)
 
     respond_to do |format|
       if @contato.save
@@ -64,7 +66,7 @@ class ContatosController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contato
-      @contato = Contato.find(params[:id])
+      @contato = current_user.contact.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

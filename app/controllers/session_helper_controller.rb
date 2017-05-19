@@ -1,0 +1,2 @@
+class SessionHelperController < ApplicationController
+end
